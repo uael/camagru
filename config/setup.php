@@ -1,12 +1,12 @@
 <?php
-require_once __DIR__ . '/../app/Camagru/Service/Db.php';
+require_once __DIR__ . '/../app/Camagru/Db.php';
 
 if (!defined('CONFIG_PATH'))
 	define('CONFIG_PATH', __DIR__ . '/');
 
 chdir(CONFIG_PATH . '..');
 
-use \Camagru\Service\Db;
+use \Camagru\Db;
 
 try {
 	Db::query(

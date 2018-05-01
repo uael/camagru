@@ -80,12 +80,12 @@ abstract class Model {
 			$sql_query = "INSERT INTO $table_name($array_keys) VALUES(" .
 				implode(", ", $array_symbols) . ");";
 		}
-		\Camagru\Service\Db::query($sql_query, $object_vars);
+		\Camagru\Db::query($sql_query, $object_vars);
 	}
 
 	public function delete() {
 		if ($this->getId()) {
-			$pdo = \Camagru\Service\Db::getPDO();
+			$pdo = \Camagru\Db::getPDO();
 			$table_name = $this->getTableName();
 			$pdo->beginTransaction();
 			$stmt = $pdo->prepare(
@@ -97,11 +97,10 @@ abstract class Model {
 	}
 
 	public static function find($column, $value) {
-		$pdo = \Camagru\Service\Db::getPDO();
-		$class_name = self::get_classname();
-		$instance = new $class_name();
+		$pdo = \Camagru\Db::getPDO();
+		$class_name = static::class;
+		$table_name = static::getTableName();
 
-		$table_name = self::get_tablename();
 		$sql_query = "SELECT * FROM $table_name WHERE $table_name.
 			$column = '$value' LIMIT 1;";
 		$query = $pdo->query($sql_query);
@@ -109,13 +108,12 @@ abstract class Model {
 		if (empty($model)) {
 			return null;
 		} else {
-			$instance->fill($model);
-			return $instance;
+			return new $class_name($model);
 		}
 	}
 
 	public static function where($column, $value) {
-		$pdo = \Camagru\Service\Db::getPDO();
+		$pdo = \Camagru\Db::getPDO();
 		$class_name = static::class;
 		$table_name = static::getTableName();
 
@@ -127,7 +125,7 @@ abstract class Model {
 	}
 
 	public static function all() {
-		$pdo = \Camagru\Service\Db::getPDO();
+		$pdo = \Camagru\Db::getPDO();
 		$class_name = static::class;
 		$table_name = static::getTableName();
 

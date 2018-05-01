@@ -1,5 +1,5 @@
 <?php
-namespace Camagru\Service;
+namespace Camagru;
 
 class Db {
 	static private $_connection = NULL;
