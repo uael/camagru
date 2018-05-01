@@ -9,3 +9,4 @@ $user = new \Camagru\Model\User([
 	"confirmed" => true
 ]);
 $user->save();
+print_r(\Camagru\Model\User::all());
