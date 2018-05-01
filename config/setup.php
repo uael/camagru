@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../app/service/Db.php';
+require_once __DIR__ . '/../app/Camagru/Service/Db.php';
 
 if (!defined('CONFIG_PATH'))
 	define('CONFIG_PATH', __DIR__ . '/');

@@ -12,40 +12,32 @@ class User extends Model {
 	/**
 	 * @var string
 	 */
-	private $username;
+	protected $username;
 
 	/**
 	 * @var string
 	 */
-	private $email;
+    protected $email;
 
 	/**
 	 * @var string
 	 */
-	private $password;
+    protected $password;
 
 	/**
 	 * @var bool
 	 */
-	private $confirmed;
+    protected $confirmed;
 
 	/**
 	 * @var string
 	 */
-	private $token;
+    protected $token;
 
 	/**
 	 * @var \DateTime
 	 */
-	private $expiration_date;
-
-	/**
-	 * User constructor.
-	 * @param array $data
-	 */
-	public function __construct(array $data) {
-
-	}
+    protected $expiration_date;
 
 	/**
 	 * @return int

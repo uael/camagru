@@ -55,7 +55,8 @@ class Db {
 			else
 				return $req->fetchAll(PDO::FETCH_CLASS, $model);
 		} catch (\Exception $e) {
-			return $e;
+		    echo $query.PHP_EOL;
+			echo $e->getMessage();
 		}
 	}
 

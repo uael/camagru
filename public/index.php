@@ -9,5 +9,3 @@ $user = new \Camagru\Model\User([
 	"confirmed" => true
 ]);
 $user->save();
-
-echo 'OK';
