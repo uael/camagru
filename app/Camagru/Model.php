@@ -102,7 +102,8 @@ abstract class Model {
 		$instance = new $class_name();
 
 		$table_name = self::get_tablename();
-		$sql_query = "SELECT * FROM $table_name WHERE $table_name.$column = '$value' LIMIT 1;";
+		$sql_query = "SELECT * FROM $table_name WHERE $table_name.
+			$column = '$value' LIMIT 1;";
 		$query = $pdo->query($sql_query);
 		$model = $query->fetch();
 		if (empty($model)) {

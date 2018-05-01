@@ -1,13 +1,11 @@
 <?php
 namespace Camagru\Model;
 
-use Camagru\Model;
-
 /**
  * Class User
  * @package Camagru
  */
-class User extends Model {
+class User extends \Camagru\Model {
 
 	/**
 	 * @var string
