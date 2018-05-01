@@ -1,8 +1,6 @@
 <?php
 namespace Camagru\Service;
 
-use PDO;
-
 class Db {
 	static private $_connection = NULL;
 	static private $_credentials = [
@@ -30,12 +28,13 @@ class Db {
 
 		self::_initCredentials();
 		try {
-			self::$_connection = new PDO(
+			self::$_connection = new \PDO(
 				self::$_credentials['dsn'],
 				self::$_credentials['user'],
 				self::$_credentials['password']
 			);
-			self::$_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			self::$_connection->setAttribute(\PDO::ATTR_ERRMODE,
+                \PDO::ERRMODE_EXCEPTION);
 		} catch (\Exception $e) {
 			die('Impossible de se connecter à la base de données');
 		}
@@ -43,7 +42,8 @@ class Db {
 		return self::$_connection;
 	}
 
-	static public function query($query, $params = null, $fetch = true, $model = NULL) {
+	static public function query($query, $params = null, $fetch = true,
+                                 $model = NULL) {
 		try {
 			$req = self::_getDatabase()->prepare($query);
 			$req->execute($params);
@@ -53,7 +53,7 @@ class Db {
 			if (!$model)
 				return $req->fetchAll();
 			else
-				return $req->fetchAll(PDO::FETCH_CLASS, $model);
+				return $req->fetchAll(\PDO::FETCH_CLASS, $model);
 		} catch (\Exception $e) {
 		    echo $query.PHP_EOL;
 			echo $e->getMessage();
