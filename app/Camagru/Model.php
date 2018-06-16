@@ -15,7 +15,7 @@ function sql_build_query($params) {
 }
 
 function fill_models($array, $class_name) {
-	$instances = array();
+	$instances = [];
 	foreach($array as $object) {
 		$instance = new $class_name($object);
 		array_push($instances, $instance);
@@ -51,11 +51,9 @@ abstract class Model {
 	}
 
 	protected static function getTableName() {
-		if (!static::$tableName)
-			static::$tableName = strtolower(
-				array_pop(preg_split('#\\\#', static::class))
-			);
-		return static::$tableName;
+		return strtolower(
+			array_pop(preg_split('#\\\#', static::class))
+		);
 	}
 
 	public function save() {
@@ -73,7 +71,7 @@ abstract class Model {
 				$array_symbols
 			);
 			$sql_query = "UPDATE $table_name SET " .
-				\sql_build_query($array_keys_symbols) .
+				sql_build_query($array_keys_symbols) .
 				" WHERE $table_name.id = $this->id;";
 			unset($object_vars["id"]);
 		} else {
@@ -96,6 +94,11 @@ abstract class Model {
 		}
 	}
 
+	/**
+	 * @param $column
+	 * @param $value
+	 * @return static
+	 */
 	public static function find($column, $value) {
 		$pdo = \Camagru\Db::getPDO();
 		$class_name = static::class;
@@ -112,6 +115,11 @@ abstract class Model {
 		}
 	}
 
+	/**
+	 * @param $column
+	 * @param $value
+	 * @return static[]
+	 */
 	public static function where($column, $value) {
 		$pdo = \Camagru\Db::getPDO();
 		$class_name = static::class;
@@ -124,6 +132,9 @@ abstract class Model {
 		return fill_models($models, $class_name);
 	}
 
+	/**
+	 * @return static[]
+	 */
 	public static function all() {
 		$pdo = \Camagru\Db::getPDO();
 		$class_name = static::class;

@@ -9,7 +9,7 @@ date_default_timezone_set('Europe/Paris');
 // GLOBALS
 define('PUBLIC_PATH', ROOT . 'public' . DS);
 define('APP_PATH', ROOT . 'app' . DS);
-define('VIEW_PATH', APP_PATH . 'view' . DS);
+define('VIEW_PATH', APP_PATH . 'Camagru' . DS . 'View' . DS);
 define('CONFIG_PATH', ROOT . 'config' . DS);
 
 require ROOT . 'public' . DS . 'index.php';

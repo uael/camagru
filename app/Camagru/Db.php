@@ -44,20 +44,15 @@ class Db {
 
 	static public function query($query, $params = null, $fetch = true,
                                  $model = NULL) {
-		try {
-			$req = self::_getDatabase()->prepare($query);
-			$req->execute($params);
+		$req = self::_getDatabase()->prepare($query);
+		$req->execute($params);
 
-			if (!$fetch)
-				return $req->rowCount();
-			if (!$model)
-				return $req->fetchAll();
-			else
-				return $req->fetchAll(\PDO::FETCH_CLASS, $model);
-		} catch (\Exception $e) {
-		    echo $query.PHP_EOL;
-			echo $e->getMessage();
-		}
+		if (!$fetch)
+			return $req->rowCount();
+		if (!$model)
+			return $req->fetchAll();
+		else
+			return $req->fetchAll(\PDO::FETCH_CLASS, $model);
 	}
 
 	static public function getLastInsertId() {

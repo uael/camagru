@@ -28,6 +28,11 @@ class User extends \Camagru\Model {
     protected $confirmed;
 
 	/**
+	 * @var bool
+	 */
+    protected $notified;
+
+	/**
 	 * @var string
 	 */
     protected $token;
@@ -94,6 +99,20 @@ class User extends \Camagru\Model {
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function isNotified() {
+		return $this->notified;
+	}
+
+	/**
+	 * @param bool $notified
+	 */
+	public function setNotified($notified) {
+		$this->notified = $notified;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function getToken() {
@@ -119,5 +138,37 @@ class User extends \Camagru\Model {
 	 */
 	public function setExpirationDate($expiration_date) {
 		$this->expiration_date = $expiration_date;
+	}
+
+	/**
+	 * @param $username
+	 * @param $password
+	 * @return bool
+	 */
+	public static function login($username, $password) {
+		if (($user = self::find("username", $username))) {
+			if ($user->isConfirmed()) {
+				return $user->getPassword() === hash("sha512", "bite$password");
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param array $params
+	 * @return bool
+	 */
+	public static function exists(array $params) {
+		if (array_key_exists("username", $params)) {
+			if (self::find("username", $params["username"])) {
+				return true;
+			}
+		}
+		if (array_key_exists("email", $params)) {
+			if (self::find("email", $params["email"])) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -27,7 +27,7 @@ class Comment extends \Camagru\Model {
 	}
 
 	/**
-	 * @return \Camagru\Model\User
+	 * @return \Camagru\Model\Picture
 	 */
 	public function getPicture() {
 		return \Camagru\Model\Picture::find("id", $this->picture_id);
